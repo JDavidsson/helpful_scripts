@@ -93,6 +93,10 @@ args = parser.parse_args()
 replacements = list()
 replacements.append(args.r)
 
+if not os.path.exists(args.p[0]):
+    print('\ncannot find path...\n')
+    exit(1)
+
 preview(args.files, args.folders, args.p[0], args.d, args.l, args.U, replacements)
 
 q = input('\nAre you sure you want to do this? \nType \'yes\' or \'no\': ')
