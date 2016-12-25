@@ -6,7 +6,7 @@ if sys.version_info <= (3, 0):
     exit(1)
 
 def preview(run_for_files, run_for_folders, path, desired_depth, lowercase, uppercase, replacements):
-    print('\n#### preview ####\n')
+    print('\n --- preview ---\n')
     for root, dirnames, files in os.walk(path, topdown=True):
         current_depth = root.count(os.sep) - path.count(os.sep)
         if current_depth > desired_depth:
@@ -93,8 +93,8 @@ args = parser.parse_args()
 replacements = list()
 replacements.append(args.r)
 
-preview(args.files, args.folders, args.p[0], args.d[0], args.l, args.U, replacements)
+preview(args.files, args.folders, args.p[0], args.d, args.l, args.U, replacements)
 
 q = input('\nAre you sure you want to do this? \nType \'yes\' or \'no\': ')
 if q == 'yes':
-    execute_change(args.files, args.folders, args.p[0], args.d[0], args.l, args.U, replacements)
+    execute_change(args.files, args.folders, args.p[0], args.d, args.l, args.U, replacements)
