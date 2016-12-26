@@ -12,11 +12,13 @@ def main(run_for_files, run_for_folders, path, desired_depth, lowercase, upperca
         exit(1)
     if phase == 1:
         print('\n --- preview (phase 1) ---\n')
+        t = True
     if phase == 2:
         print('\n --- execute changes (phase 2) ---\n')
+        t = False
         errors = 0
 
-    for root, dirnames, files in os.walk(path, topdown=False):
+    for root, dirnames, files in os.walk(path, topdown=t):
         current_depth = root.count(os.sep) - path.count(os.sep)
         if not current_depth > desired_depth:
             if run_for_folders:
@@ -66,7 +68,7 @@ parser = argparse.ArgumentParser(description='renaming multiple folders and/or f
 parser.add_argument('--files', action='store_true', help='run for files')
 parser.add_argument('--folders', action='store_true', help='run for folders')
 parser.add_argument('-p', metavar='path',  nargs=1, required=True, help='root path (required)')
-parser.add_argument('-d', metavar='depth', type=int, nargs=1, default=0, help='specify the depth to traverse, default is 0')
+parser.add_argument('-d', metavar='depth', nargs=1, default='0', help='specify the depth to traverse, default is 0')
 parser.add_argument('-l', action='store_true', help='makes all characters lowercase')
 parser.add_argument('-U', action='store_true', help='makes all characters uppercase')
 parser.add_argument('-r', nargs=2, metavar=('old', 'new'), default=('',''), help='replaces substring old with new')
@@ -75,11 +77,7 @@ args = parser.parse_args()
 replacements = list()
 replacements.append(args.r)
 
-# prevents TypeError in Windows
-if os.name == 'nt': depth = args.d
-else: depth = args.d[0]
-
-main(args.files, args.folders, args.p[0], depth, args.l, args.U, replacements, 1)
+main(args.files, args.folders, args.p[0], int(args.d[0]), args.l, args.U, replacements, 1)
 q = input('\nAre you sure you want to do this? \nType \'yes\' or \'no\': ')
 if q == 'yes':
-    main(args.files, args.folders, args.p[0], depth, args.l, args.U, replacements, 2)
+    main(args.files, args.folders, args.p[0], int(args.d[0]), args.l, args.U, replacements, 2)
