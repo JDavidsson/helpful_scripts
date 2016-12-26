@@ -7,6 +7,9 @@ if sys.version_info <= (3, 0):
 
 def main(run_for_files, run_for_folders, path, desired_depth, lowercase, uppercase, replacements, phase):
 
+    if not run_for_files and not run_for_folders:
+        print("nothing to preview, please select --files, --folders or both")
+        exit(1)
     if not os.path.exists(args.p[0]):
         print('\ncannot find path...\n')
         exit(1)
@@ -59,9 +62,6 @@ def main(run_for_files, run_for_folders, path, desired_depth, lowercase, upperca
                             print('Permission denied,', p)
                             errors += 1
 
-    if not run_for_files and not run_for_folders:
-        print("nothing to preview, please select --files, --folders or both")
-        exit(1)
     if phase ==2: print('\nfinished with', errors, 'error(s)')
 
 parser = argparse.ArgumentParser(description='renaming multiple folders and/or files at once', epilog='phase 1: preview changes \nphase 2: make changes\n ', formatter_class=argparse.RawTextHelpFormatter)
