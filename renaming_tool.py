@@ -75,8 +75,11 @@ args = parser.parse_args()
 replacements = list()
 replacements.append(args.r)
 
-main(args.files, args.folders, args.p[0], args.d[0], args.l, args.U, replacements, 1)
+# prevents TypeError in Windows
+if os.name == 'nt': depth = args.d
+else: depth = args.d[0]
 
+main(args.files, args.folders, args.p[0], depth, args.l, args.U, replacements, 1)
 q = input('\nAre you sure you want to do this? \nType \'yes\' or \'no\': ')
 if q == 'yes':
-    main(args.files, args.folders, args.p[0], args.d[0], args.l, args.U, replacements, 2)
+    main(args.files, args.folders, args.p[0], depth, args.l, args.U, replacements, 2)
