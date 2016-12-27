@@ -77,7 +77,12 @@ args = parser.parse_args()
 replacements = list()
 replacements.append(args.r)
 
-main(args.files, args.folders, args.p[0], int(args.d[0]), args.l, args.U, replacements, 1)
-q = input('\nAre you sure you want to do this? \nType \'yes\' or \'no\': ')
-if q == 'yes':
-    main(args.files, args.folders, args.p[0], int(args.d[0]), args.l, args.U, replacements, 2)
+try:
+    main(args.files, args.folders, args.p[0], int(args.d[0]), args.l, args.U, replacements, 1)
+    q = input('\nAre you sure you want to do this? \nType \'yes\' or \'no\': ')
+    if q == 'yes':
+        main(args.files, args.folders, args.p[0], int(args.d[0]), args.l, args.U, replacements, 2)
+except UnicodeEncodeError as u:
+    print(u)
+    if os.name == 'nt':
+        print('\nif you are running python from command (cmd), run \'chcp 65001\' to fix the encoding error ')
