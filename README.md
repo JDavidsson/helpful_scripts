@@ -24,6 +24,18 @@ phase 1: preview changes
 phase 2: make changes
 
 ```
+### **sleep.py**
 
+``` bash
+python sleep.py -h
+usage: sleep.py [-h] [-m minutes] [-s mseconds]
+
+puts computer to sleep
+
+optional arguments:
+  -h, --help   show this help message and exit
+  -m minutes   type how many minutes to wait before sleep
+  -s mseconds  type how many seconds to wait before sleep
+```
 
 ----------
