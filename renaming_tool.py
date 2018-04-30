@@ -1,4 +1,4 @@
-#! /usr/bin/env python3      
+#! /usr/bin/env python3
 import argparse, os, sys
 
 if sys.version_info <= (3, 0):
@@ -46,6 +46,7 @@ def main(run_for_files, run_for_folders, path, desired_depth, lowercase, upperca
                 for file in files:
                     # remove file extension before manipulation
                     new, ext = os.path.splitext(file)[0], os.path.splitext(file)[1]
+                    old = new + ext
                     if lowercase:
                         new = new.lower()
                     elif uppercase:
@@ -57,7 +58,7 @@ def main(run_for_files, run_for_folders, path, desired_depth, lowercase, upperca
 
                     if phase == 2:
                         try:
-                            os.rename(os.path.join(root, dirname), os.path.join(root, new))
+                            os.rename(os.path.join(root, old), os.path.join(root, new))
                         except PermissionError as p:
                             print('Permission denied,', p)
                             errors += 1
